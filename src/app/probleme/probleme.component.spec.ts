@@ -46,6 +46,7 @@ describe('ProblemeComponent', () => {
   it('#4 | Zone PRÉNOM invalide avec aucune valeur', () => {
     let zone = component.problemeForm.controls['prenom'];
     zone.setValue('');
-    expect(zone.valid).toBeFalsy();
+    let errors = zone.errors || {};
+    expect(errors['required']).toBeTruthy();
   });
 });
