@@ -42,4 +42,10 @@ describe('ProblemeComponent', () => {
     zone.setValue('a'.repeat(200));
     expect(zone.valid).toBeTruthy();
   });
+
+  it('#4 | Zone PRÉNOM invalide avec aucune valeur', () => {
+    let zone = component.problemeForm.controls['prenom'];
+    zone.setValue('');
+    expect(zone.valid).toBeFalsy();
+  });
 });
