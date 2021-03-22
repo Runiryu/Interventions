@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LongueurZoneValidator } from '../shared/longueur-minimum/longueur-minimum.component';
 
 import { ProblemeComponent } from './probleme.component';
 
@@ -49,15 +50,23 @@ describe('ProblemeComponent', () => {
     expect(errors['required']).toBeTruthy();
   });
 
-  it('#5 | Zone PRÉNOM valide avec 10 espaces', () => {
+  it('#5 | Zone PRÉNOM invalide avec 10 espaces', () => {
     let zone = component.problemeForm.controls['prenom'];
     zone.setValue(' '.repeat(10));
-    expect(zone.valid).toBeTruthy();
+
+    let validator = LongueurZoneValidator.longueurMinimum(3);
+    let result = validator(zone);
+
+    expect(result['nbreCaracteresInsuffisants']).toBeTrue();
   });
 
-  it('#6 | Zone PRÉNOM valide avec 2 espaces et 1 caractère', () => {
+  it('#6 | Zone PRÉNOM invalide avec 2 espaces et 1 caractère', () => {
     let zone = component.problemeForm.controls['prenom'];
     zone.setValue('  a');
-    expect(zone.valid).toBeTruthy();
+
+    let validator = LongueurZoneValidator.longueurMinimum(3);
+    let result = validator(zone);
+
+    expect(result['nbreCaracteresInsuffisants']).toBeTrue();
   });
 });
