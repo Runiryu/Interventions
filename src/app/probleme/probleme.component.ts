@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class ProblemeComponent implements OnInit {
 
-  problemeForm!: FormGroup;
+  problemeForm: FormGroup;
   constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {

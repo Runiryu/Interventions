@@ -5,11 +5,26 @@
       Déclarer un problème
     </div>
     <div class="card-body">
-      <h5 class="card-title">Special title treatment</h5>
-      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-    </div>
-    <div class="card-footer">
-      <button class="btn btn-primary" type="submit">Sauvegarder</button>
+      <p class="card-text">Veuillez renseigner les zones suivantes et soumettre votre demande.</p>
+      <div class="card-text">
+        <form class="form-horizontal" 
+          novalidate 
+          [formGroup]="problemeForm"
+        >
+          <input class="form-control" 
+            id="prenomId" 
+            type="text" 
+            placeholder="Votre prénom ici (obligatoire)" 
+            formControlName="prenom"
+            [ngClass]="{'is-valid': (problemeForm.get('prenom').touched ||
+            problemeForm.get('prenom').dirty) &&
+            (problemeForm.get('prenom').valid),
+            'is-invalid': (problemeForm.get('prenom').touched ||
+            problemeForm.get('prenom').dirty) &&
+            (!problemeForm.get('prenom').valid )}"
+          />
+        </form>
+      </div> 
     </div>
   </div>
 </div>
