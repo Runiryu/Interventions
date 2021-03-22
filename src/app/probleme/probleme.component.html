@@ -23,6 +23,21 @@
             problemeForm.get('prenom').dirty) &&
             (!problemeForm.get('prenom').valid )}"
           />
+          <span *ngIf="(problemeForm.get('prenom').touched ||
+            problemeForm.get('prenom').dirty) &&
+            problemeForm.get('prenom').errors">
+            <span *ngIf="problemeForm.get('prenom').errors.required">
+              <small class="text-muted">
+                Merci de saisir votre prénom.
+              </small>
+            </span>
+            <span *ngIf="problemeForm.get('prenom').errors.nbreCaracteresInsuffisants">
+              <small class="text-muted">
+                Veuillez entrer plus de caractères.
+              </small>
+            </span>
+          </span>
+          
         </form>
       </div> 
     </div>
