@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { emailMatcherValidator } from '../shared/email-matcher/email-matcher.component';
 import { LongueurZoneValidator } from '../shared/longueur-minimum/longueur-minimum.component';
 import { ITypeProbleme } from './typeprobleme';
 import { TypeproblemeService } from './typeprobleme.service';
@@ -37,6 +38,7 @@ export class ProblemeComponent implements OnInit {
   appliquerNotifications(typeNotification: string): void {
     const courrielControl = this.problemeForm.get('courrielGroup.courriel');
     const courrielConfirmationControl = this.problemeForm.get('courrielGroup.courrielConfirmation');
+    const courrielGroupControl = this.problemeForm.get('courrielGroup');
     const telephoneControl = this.problemeForm.get('telephone');
 
     courrielControl.clearValidators();
@@ -51,18 +53,20 @@ export class ProblemeComponent implements OnInit {
     telephoneControl.reset();
     telephoneControl.disable();
 
-    // if (typeNotification === 'ParCourriel') {
-    //   courrielControl.setValidators(Validators.required);
-    //   courrielControl.enable();
-    //   courrielConfirmationControl.setValidators(Validators.required);
-    //   courrielConfirmationControl.enable();
-    // } else if (typeNotification === 'ParTelephone') {
-    //   telephoneControl.setValidators(Validators.required);
-    //   telephoneControl.enable();
-    // }
+    if (typeNotification === 'ParCourriel') {
+      courrielControl.setValidators(Validators.compose([Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+')]));
+      courrielControl.enable();
+      courrielConfirmationControl.setValidators(Validators.required);
+      courrielConfirmationControl.enable();
+      courrielGroupControl.setValidators(emailMatcherValidator.courrielDifferents());
+    } else if (typeNotification === 'ParMessageTexte') {
+      telephoneControl.setValidators(Validators.required);
+      telephoneControl.enable();
+    }
 
     courrielControl.updateValueAndValidity();
     courrielConfirmationControl.updateValueAndValidity();
+    courrielGroupControl.updateValueAndValidity();
     telephoneControl.updateValueAndValidity();
   }
 }
