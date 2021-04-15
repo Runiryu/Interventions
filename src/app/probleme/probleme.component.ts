@@ -23,6 +23,7 @@ export class ProblemeComponent implements OnInit {
       prenom: ['', [LongueurZoneValidator.longueurMinimum(3), Validators.required]],
       nom: ['', [Validators.maxLength(50), Validators.required]],
       typeProbleme: ['', Validators.required],
+      notification: ['NePasMeNotifier'],
       courrielGroup: this.fb.group({
         courriel: [{value: '', disabled: true}],
         courrielConfirmation: [{value: '', disabled: true}]
@@ -33,6 +34,9 @@ export class ProblemeComponent implements OnInit {
     this.typesprobleme.obtenirTypesProbleme()
     .subscribe(type => this.typesProbleme = type,
                 error => this.errorMessage = <any>error);
+
+    this.problemeForm.get('notification').valueChanges
+    .subscribe(value => this.appliquerNotifications(value));
   }
 
   appliquerNotifications(typeNotification: string): void {
