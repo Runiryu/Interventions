@@ -54,13 +54,24 @@ export class ProblemeComponent implements OnInit {
     telephoneControl.disable();
 
     if (typeNotification === 'ParCourriel') {
-      courrielControl.setValidators(Validators.compose([Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+')]));
+      
+      courrielControl.setValidators(Validators.compose([
+        Validators.required, 
+        Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+')
+      ]));
       courrielControl.enable();
       courrielConfirmationControl.setValidators(Validators.required);
       courrielConfirmationControl.enable();
       courrielGroupControl.setValidators(emailMatcherValidator.courrielDifferents());
+
     } else if (typeNotification === 'ParMessageTexte') {
-      telephoneControl.setValidators(Validators.required);
+
+      telephoneControl.setValidators(Validators.compose([
+        Validators.required, 
+        Validators.pattern('[0-9]+'), 
+        Validators.minLength(10), 
+        Validators.maxLength(10)
+      ]));
       telephoneControl.enable();
     }
 
