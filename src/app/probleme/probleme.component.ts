@@ -6,7 +6,7 @@ import { ITypeProbleme } from './typeprobleme';
 import { TypeproblemeService } from './typeprobleme.service';
 
 @Component({
-  selector: 'Inter-probleme',
+  selector: 'app-probleme',
   templateUrl: './probleme.component.html',
   styleUrls: ['./probleme.component.css']
 })
@@ -29,6 +29,9 @@ export class ProblemeComponent implements OnInit {
         courrielConfirmation: [{value: '', disabled: true}]
       }),
       telephone: [{value: '', disabled: true}],
+      descriptionProbleme: ['', [Validators.required, Validators.minLength(5)]],
+      noUnite: '',
+      dateProbleme: {value: Date(), disabled: true}
     });
 
     this.typesprobleme.obtenirTypesProbleme()
