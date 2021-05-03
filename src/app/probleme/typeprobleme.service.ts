@@ -9,7 +9,7 @@ import { tap, catchError } from 'rxjs/operators';
 })
 export class TypeproblemeService {
 
-  private baseUrl  = 'api/typesprobleme';
+  private baseUrl = 'https://localhost:5001/Intervention';
 
   constructor(private http: HttpClient) { }
 
